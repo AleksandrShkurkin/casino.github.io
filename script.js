@@ -96,6 +96,11 @@ function updatePlay() {
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
             arrayResults[i][j] = Math.floor(Math.random() * 4);
+            let present = presentInRow(i, j, arrayResults[i][j]);
+            while (present == true) {
+                arrayResults[i][j] = Math.floor(Math.random() * 4);
+                present = presentInRow(i, j, arrayResults[i][j]);
+            }
             let element = elementArray[i][j];
             element.style.backgroundImage = `url(${fruitChoice(arrayResults[i][j])})`;
         }
@@ -123,3 +128,12 @@ button.addEventListener('click', () => {
         rounds = 0;
     }
 });
+
+function presentInRow(row, column, num) {
+    for (let f = 0; f < column; f++) {
+        if (arrayResults[row][f] == num) {
+            return true;
+        }
+    }
+    return false;
+}
